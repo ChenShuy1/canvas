@@ -1,0 +1,18 @@
+{
+  "name": "canvas",
+  "version": "1.0.0",
+  "description": "learning canvas",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "browser-sync start --server --files \"**\""
+  },
+  "keywords": [
+    "canvas"
+  ],
+  "author": "chenshuyi",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.24.7"
+  }
+}
