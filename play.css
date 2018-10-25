@@ -1,0 +1,27 @@
+.song-disc {
+    position: relative;
+}
+#song-disc-wrap {
+    position: absolute;
+    z-index: 999;
+}
+.song-disc-play {
+    position: absolute;
+    top: 60px;
+    /* left: 50%; */
+    height: 296px;
+    width: 375px;
+}
+#song-disc-turn {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+}
+#song-disc-btn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+}
