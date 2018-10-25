@@ -2,18 +2,21 @@
     position: relative;
 }
 .song-disc-play {
-    width: 100%;
     padding-top: 63px;
     width: 248px;
     margin: 0 auto;
 }
-#song-disc-turn::after {
+.song-disc-wrap {
+    width: 100%;
+    position: relative;
+}
+.song-disc-wrap::after {
     position: absolute;
     content: '';
     width: 84px;
     height: 122px;
-    top: 0;
-    left: 157px;
+    top: -63px;
+    left: 105px;
     background-image:url(./images/needle.png);
     background-size: contain;
 }
