@@ -16,6 +16,7 @@ window.onload = () => {
         console.log(deviceWidth);
         
         if (deviceWidth <= 359) {
+            rollwrap = 150;
             turnCanvas.style.width = '248px';
             turnCanvas.width = '496';
             turnCanvas.style.height = '248px';
@@ -25,15 +26,25 @@ window.onload = () => {
             btnCanvas.style.height = '50px';
             btnCanvas.height = '100';
         } else if (deviceWidth <= 413) {
+            rollwrap = 184;
             turnCanvas.style.width = '296px';
+            turnCanvas.width = '592';
             turnCanvas.style.height = '296px';
+            turnCanvas.height = '592';
             btnCanvas.style.width = '56px';
+            btnCanvas.width = '112';
             btnCanvas.style.height = '56px';
+            btnCanvas.height = '112';
         } else {
+            rollwrap = 212;
             turnCanvas.style.width = '342px';
+            turnCanvas.width = '684';
             turnCanvas.style.height = '342px';
+            turnCanvas.height = '684';
             btnCanvas.style.width = '65px';
+            btnCanvas.width = '130';
             btnCanvas.style.height = '65px';
+            btnCanvas.height = '130';
         }
     }
     const rotate = function(canvas, disc, cover) {
@@ -76,6 +87,7 @@ window.onload = () => {
     /** @type {HTMLCanvasElement} */
     
     deviceWidth = document.body.clientWidth || document.documentElement.clientWidth;
+    let rollwrap = 0;
     // let wrapCanvas = document.getElementById('song-disc-wrap');
     // const wrapContext = wrapCanvas.getContext('2d');
 
@@ -105,13 +117,14 @@ window.onload = () => {
         cover.src = 'http://p1.music.126.net/uomXAcwMBM8Tk5MBDFvYaw==/6663040464990704.jpg?imageView&thumbnail=360y360&quality=75&tostatic=0';
         cover.onload = function() {
             turnContext.drawImage(disc, 0, 0, turnCanvas.width , turnCanvas.width);
+            console.log(rollwrap);
             
-            circleImg(turnContext, cover, (turnCanvas.width / 2 - 150) / 2, (turnCanvas.width / 2 - 150) / 2, 150 / 2);
+            circleImg(turnContext, cover, (turnCanvas.width / 2 - rollwrap) / 2, (turnCanvas.width / 2 - rollwrap) / 2, rollwrap / 2);
             
             // 填充绘制的圆
 
             if (isPause) {
-                btnContext.drawImage(playBtn, 0, 0, 50 * ratio, 50 * ratio);
+                btnContext.drawImage(playBtn, 0, 0, btnCanvas.width , btnCanvas.width);
             } else {
                 // requestAnimationFrame(() => rotate(turnCanvas, disc, cover))
             }
