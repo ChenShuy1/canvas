@@ -1,6 +1,6 @@
 window.onload = () => {
     let deviceWidth = 0;
-    let isPause = false;
+    let isPause = true;
     const getPixelRatio = function(context) {
         const backingStore = context.backingStorePixelRatio ||
             context.webkitBackingStorePixelRatio ||
@@ -10,13 +10,31 @@ window.onload = () => {
             context.backingStorePixelRatio || 1;
             return (window.devicePixelRatio || 1) / backingStore;
     };
-    const setWidthHight = function(canvas, ratio, w) {
-        canvas.width = w ? w * ratio : deviceWidth * ratio;
-        canvas.height = w ? w * ratio : (deviceWidth + 100) * ratio;
-        canvas.style.width = w ? w + 'px' : deviceWidth + 'px';
-        canvas.style.height = w ? w + 'px' : (deviceWidth + 100) + 'px';
-
-        return canvas;
+    const setWidthHight = function() {
+        // wrapCanvas.style.width = deviceWidth + 'px';
+        // wrapCanvas.style.height = deviceWidth + 'px';
+        console.log(deviceWidth);
+        
+        if (deviceWidth <= 359) {
+            turnCanvas.style.width = '248px';
+            turnCanvas.width = '496';
+            turnCanvas.style.height = '248px';
+            turnCanvas.height = '496';
+            btnCanvas.style.width = '50px';
+            btnCanvas.width = '100';
+            btnCanvas.style.height = '50px';
+            btnCanvas.height = '100';
+        } else if (deviceWidth <= 413) {
+            turnCanvas.style.width = '296px';
+            turnCanvas.style.height = '296px';
+            btnCanvas.style.width = '56px';
+            btnCanvas.style.height = '56px';
+        } else {
+            turnCanvas.style.width = '342px';
+            turnCanvas.style.height = '342px';
+            btnCanvas.style.width = '65px';
+            btnCanvas.style.height = '65px';
+        }
     }
     const rotate = function(canvas, disc, cover) {
         // canvas.width/height: 592px
@@ -58,8 +76,8 @@ window.onload = () => {
     /** @type {HTMLCanvasElement} */
     
     deviceWidth = document.body.clientWidth || document.documentElement.clientWidth;
-    let wrapCanvas = document.getElementById('song-disc-wrap');
-    const wrapContext = wrapCanvas.getContext('2d');
+    // let wrapCanvas = document.getElementById('song-disc-wrap');
+    // const wrapContext = wrapCanvas.getContext('2d');
 
     let turnCanvas = document.getElementById('song-disc-turn');
     const turnContext = turnCanvas.getContext('2d');
@@ -67,10 +85,11 @@ window.onload = () => {
     let btnCanvas = document.getElementById('song-disc-btn');
     const btnContext = btnCanvas.getContext('2d');
 
-    const ratio = getPixelRatio(wrapContext);
+    const ratio = getPixelRatio(turnContext);
+    setWidthHight();
 
     const disc = new Image();
-    disc.src = './images/disc-ip6.png';
+    disc.src = './images/disc.png';
 
     const needle = new Image();
     needle.src = './images/needle-ip6.png';
@@ -80,32 +99,31 @@ window.onload = () => {
 
     disc.onload = function() {
         
-        wrapContext.drawImage(needle, deviceWidth - needle.width / 8, 0, 96 * ratio, 137 * ratio);
+        // wrapContext.drawImage(needle, deviceWidth - needle.width / 8, 0, 96 * ratio, 137 * ratio);
         
         const cover = new Image();
         cover.src = 'http://p1.music.126.net/uomXAcwMBM8Tk5MBDFvYaw==/6663040464990704.jpg?imageView&thumbnail=360y360&quality=75&tostatic=0';
         cover.onload = function() {
-            console.log(deviceWidth, cover.width);
-            turnContext.drawImage(disc, 0, 0, 296 * ratio, 296 * ratio);
+            turnContext.drawImage(disc, 0, 0, turnCanvas.width , turnCanvas.width);
             
-            circleImg(turnContext, cover, (296 - 180) / 2, (296 - 180) / 2, cover.width / 4);
+            circleImg(turnContext, cover, (turnCanvas.width / 2 - 150) / 2, (turnCanvas.width / 2 - 150) / 2, 150 / 2);
             
             // 填充绘制的圆
 
             if (isPause) {
-                btnContext.drawImage(playBtn, 0, 0, 56 * ratio, 56 * ratio);
+                btnContext.drawImage(playBtn, 0, 0, 50 * ratio, 50 * ratio);
             } else {
-                requestAnimationFrame(() => rotate(turnCanvas, disc, cover))
+                // requestAnimationFrame(() => rotate(turnCanvas, disc, cover))
             }
-            // 监听turnCanvas的点击事件
-            wrapCanvas.addEventListener('click', function() {
-                console.log('in');
+            // // 监听turnCanvas的点击事件
+            // wrapCanvas.addEventListener('click', function() {
+            //     console.log('in');
                 
-                isPause = !isPause;
-                if (!isPause) {
-                    requestAnimationFrame(() => rotate(turnCanvas, disc, cover));
-                }
-            }, false);
+            //     isPause = !isPause;
+            //     if (!isPause) {
+            //         requestAnimationFrame(() => rotate(turnCanvas, disc, cover));
+            //     }
+            // }, false);
         }
     }
 
